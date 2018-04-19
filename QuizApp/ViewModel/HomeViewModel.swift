@@ -53,10 +53,13 @@ class HomeViewModel: NSObject {
         
     }
     
-    func calculateResult(){
+    func calculateResult() -> String{
         
         let arrayOfQuestionModels : [QuestionInformation] = DatabaseManager.fetchDataFromDatabase() as! [QuestionInformation]
-        //let filterArray : NSMutableArray = arrayOfQuestionModels.filter($0.qu)
+        let filterArray : [QuestionInformation] = arrayOfQuestionModels.filter{$0.qQuestionInputAnswer == $0.qQuestionCorrect_Answer}
+        let resultInt : Int = filterArray.count
+        let resultString : String = "\(resultInt)"
+        return "You have scored "+resultString+" out of 10."
         
     }
     

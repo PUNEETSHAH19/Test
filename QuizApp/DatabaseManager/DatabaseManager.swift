@@ -97,7 +97,7 @@ class DatabaseManager: NSObject {
         
     }
     
-    static func updateQuestionSAnswer(questionId : String, selectionIndex : Int){
+    static func updateQuestionSAnswer(questionId : String, selectionInput : String){
         
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "QuestionEntity")
         let predicate = NSPredicate(format: "questionId ="+questionId)
@@ -110,7 +110,7 @@ class DatabaseManager: NSObject {
             if test.count == 1{
                 
                 let objectUpdate = test.first as! NSManagedObject
-                objectUpdate.setValue("\(selectionIndex)", forKey: "questionInputAnswer")
+                objectUpdate.setValue(selectionInput, forKey: "questionInputAnswer")
                 
                 do{
                     try AppShareData.managedObjectContext.save()

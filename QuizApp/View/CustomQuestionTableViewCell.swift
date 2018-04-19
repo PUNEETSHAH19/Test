@@ -33,14 +33,22 @@ class CustomQuestionTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureQuestionCell(viewController:UIViewController, indexPath : IndexPath){
+    func configureQuestionCell(viewController:UIViewController, indexPath : IndexPath,needToReArrangeRandomAnswers : Bool){
         
         let arrayOfQuestionModels = DatabaseManager.fetchDataFromDatabase()
         let questionModel : QuestionInformation = arrayOfQuestionModels.object(at: indexPath.row) as! QuestionInformation
         
         self.labelQuestion.text = questionModel.qQuestionQuestion as String
-        self.setRandomAnswersOrder(questionModel: questionModel)
+        
+//        if needToReArrangeRandomAnswers {
+//        self.setRandomAnswersOrder(questionModel: questionModel)
+//        }
 
+        self.buttonAnswer1.setTitle(questionModel.qQuestionCorrect_Answer as String, for: UIControlState.normal)
+        self.buttonAnswer2.setTitle(questionModel.qQuestionInCorrect_Answer_1 as String, for: UIControlState.normal)
+        self.buttonAnswer3.setTitle(questionModel.qQuestionInCorrect_Answer_2 as String, for: UIControlState.normal)
+        self.buttonAnswer4.setTitle(questionModel.qQuestionInCorrect_Answer_3 as String, for: UIControlState.normal)
+        
         self.buttonAnswer1.tag = 100
         self.buttonAnswer2.tag = 200
         self.buttonAnswer3.tag = 300
@@ -139,8 +147,6 @@ class CustomQuestionTableViewCell: UITableViewCell {
     
     @IBAction func buttonAnswerAction(sender: AnyObject){
         
-        let index : Int = sender.tag/100
-
         var cellIndex : Int = 0
         if let button = sender as? UIButton {
             if let superview = button.superview {
@@ -153,7 +159,9 @@ class CustomQuestionTableViewCell: UITableViewCell {
         let arrayOfQuestionModels = DatabaseManager.fetchDataFromDatabase()
         let questionModel : QuestionInformation = arrayOfQuestionModels.object(at: cellIndex) as! QuestionInformation
 
-        DatabaseManager.updateQuestionSAnswer(questionId: questionModel.qQuestionId as String, selectionIndex: index)
+        if let buttonTitle = sender.title(for: .normal) {
+            DatabaseManager.updateQuestionSAnswer(questionId: questionModel.qQuestionId as String, selectionInput: buttonTitle)
+        }
         
         //Reloading tableView
         self.delegate?.reloadTableView(index: cellIndex)
