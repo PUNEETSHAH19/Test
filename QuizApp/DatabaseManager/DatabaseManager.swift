@@ -26,13 +26,42 @@ class DatabaseManager: NSObject {
             question.setValue(questionInfoModel.qQuestionCategory, forKey: "questionCategory")
             question.setValue(questionInfoModel.qQuestionCorrect_Answer, forKey: "questionCorrectAnswer")
             question.setValue(questionInfoModel.qQuestionDifficulty, forKey: "questionDifficulty")
-            question.setValue(questionInfoModel.qQuestionInCorrect_Answer_1, forKey: "questionInCorrectAnswer_1")
-            question.setValue(questionInfoModel.qQuestionInCorrect_Answer_2, forKey: "questionInCorrectAnswer_2")
-            question.setValue(questionInfoModel.qQuestionInCorrect_Answer_3, forKey: "questionInCorrectAnswer_3")
+
+            //here we are saving available answere in random order because correct answer will not be on same place for all questions
+            let randomNumber : Int = Int(arc4random_uniform(4) + 1) // [1, 4]
+            
+            switch randomNumber {
+            case 1 :
+                question.setValue(questionInfoModel.qQuestionAnswer_1, forKey: "questionAnswer_1")
+                question.setValue(questionInfoModel.qQuestionAnswer_2, forKey: "questionAnswer_2")
+                question.setValue(questionInfoModel.qQuestionAnswer_3, forKey: "questionAnswer_3")
+                question.setValue(questionInfoModel.qQuestionAnswer_4, forKey: "questionAnswer_4")
+                break;
+            case 2 :
+                question.setValue(questionInfoModel.qQuestionAnswer_1, forKey: "questionAnswer_1")
+                question.setValue(questionInfoModel.qQuestionAnswer_2, forKey: "questionAnswer_2")
+                question.setValue(questionInfoModel.qQuestionAnswer_3, forKey: "questionAnswer_4")
+                question.setValue(questionInfoModel.qQuestionAnswer_4, forKey: "questionAnswer_3")
+                break;
+            case 3 :
+                question.setValue(questionInfoModel.qQuestionAnswer_1, forKey: "questionAnswer_1")
+                question.setValue(questionInfoModel.qQuestionAnswer_2, forKey: "questionAnswer_4")
+                question.setValue(questionInfoModel.qQuestionAnswer_3, forKey: "questionAnswer_3")
+                question.setValue(questionInfoModel.qQuestionAnswer_4, forKey: "questionAnswer_2")
+                break;
+            case 4 :
+                question.setValue(questionInfoModel.qQuestionAnswer_1, forKey: "questionAnswer_4")
+                question.setValue(questionInfoModel.qQuestionAnswer_2, forKey: "questionAnswer_1")
+                question.setValue(questionInfoModel.qQuestionAnswer_3, forKey: "questionAnswer_3")
+                question.setValue(questionInfoModel.qQuestionAnswer_4, forKey: "questionAnswer_2")
+                break;
+            default:
+                break
+            }
+            
             
             question.setValue(questionInfoModel.qQuestionType, forKey: "questionType")
             question.setValue(questionInfoModel.qQuestionInputAnswer, forKey: "questionInputAnswer")
-            
             
             do {
                 try AppShareData.managedObjectContext.save()
@@ -63,9 +92,12 @@ class DatabaseManager: NSObject {
                 questionInfoModel.qQuestionCategory = data.value(forKey: "questionCategory") as! NSString
                 questionInfoModel.qQuestionCorrect_Answer = data.value(forKey: "questionCorrectAnswer") as! NSString
                 questionInfoModel.qQuestionDifficulty = data.value(forKey: "questionDifficulty") as! NSString
-                questionInfoModel.qQuestionInCorrect_Answer_1 = data.value(forKey: "questionInCorrectAnswer_1") as! NSString
-                questionInfoModel.qQuestionInCorrect_Answer_2 = data.value(forKey: "questionInCorrectAnswer_2") as! NSString
-                questionInfoModel.qQuestionInCorrect_Answer_3 = data.value(forKey: "questionInCorrectAnswer_3") as! NSString
+                
+                questionInfoModel.qQuestionAnswer_1 = data.value(forKey: "questionAnswer_1") as! NSString
+                questionInfoModel.qQuestionAnswer_2 = data.value(forKey: "questionAnswer_2") as! NSString
+                questionInfoModel.qQuestionAnswer_3 = data.value(forKey: "questionAnswer_3") as! NSString
+                questionInfoModel.qQuestionAnswer_4 = data.value(forKey: "questionAnswer_4") as! NSString
+                
                 questionInfoModel.qQuestionType = data.value(forKey: "questionType") as! NSString
                 questionInfoModel.qQuestionInputAnswer = data.value(forKey: "questionInputAnswer") as! NSString
                 

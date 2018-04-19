@@ -14,7 +14,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var tableView : UITableView!
     let homeViewModel : HomeViewModel = HomeViewModel()
     var arrayOfQuestionModels = NSMutableArray.init()
-    var isNeedToReArrangeAnsOrders : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +24,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         arrayOfQuestionModels.removeAllObjects()
         arrayOfQuestionModels = DatabaseManager.fetchDataFromDatabase()
         DispatchQueue.main.async {
-            self.isNeedToReArrangeAnsOrders = true
             self.tableView.reloadData()
         }
 
@@ -48,7 +46,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         // create a new cell if needed or reuse an old one
         let cell:CustomQuestionTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "questionCellIdentifier") as! CustomQuestionTableViewCell!
         
-        cell.configureQuestionCell(viewController: self, indexPath: indexPath, needToReArrangeRandomAnswers: isNeedToReArrangeAnsOrders)
+        cell.configureQuestionCell(viewController: self, indexPath: indexPath)
         cell.delegate = self
 
         return cell
@@ -56,7 +54,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     //Implementing delegate
     func reloadTableView(index:Int) {
-        self.isNeedToReArrangeAnsOrders = false
         self.tableView.reloadRows(at: [IndexPath.init(row: index, section: 0)], with: UITableViewRowAnimation.automatic)
     }
     

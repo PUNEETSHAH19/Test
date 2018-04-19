@@ -19,9 +19,10 @@ class QuestionInformation: NSObject {
     var qQuestionDifficulty : NSString
     var qQuestionQuestion : NSString
     var qQuestionCorrect_Answer : NSString
-    var qQuestionInCorrect_Answer_1 : NSString
-    var qQuestionInCorrect_Answer_2 : NSString
-    var qQuestionInCorrect_Answer_3 : NSString
+    var qQuestionAnswer_1 : NSString
+    var qQuestionAnswer_2 : NSString
+    var qQuestionAnswer_3 : NSString
+    var qQuestionAnswer_4 : NSString
     var qQuestionInputAnswer : NSString
 
     /*
@@ -29,7 +30,7 @@ class QuestionInformation: NSObject {
      paramters      Strings
      return         NA
      */
-    required init(qQuestionId:NSString = "",qQuestionCategory:NSString = "", qQuestionType:NSString = "", qQuestionDifficulty:NSString = "", qQuestionQuestion:NSString = "", qQuestionCorrect_Answer:NSString = "", qQuestionInCorrect_Answer_1:NSString = "", qQuestionInCorrect_Answer_2:NSString = "", qQuestionInCorrect_Answer_3:NSString = "", qQuestionInputAnswer : NSString = "") {
+    required init(qQuestionId:NSString = "",qQuestionCategory:NSString = "", qQuestionType:NSString = "", qQuestionDifficulty:NSString = "", qQuestionQuestion:NSString = "", qQuestionCorrect_Answer:NSString = "", qQuestionAnswer_1:NSString = "", qQuestionAnswer_2:NSString = "", qQuestionAnswer_3:NSString = "",qQuestionAnswer_4:NSString = "", qQuestionInputAnswer : NSString = "") {
         
         self.qQuestionId = qQuestionId
         self.qQuestionCategory = qQuestionCategory
@@ -37,9 +38,10 @@ class QuestionInformation: NSObject {
         self.qQuestionDifficulty = qQuestionDifficulty
         self.qQuestionQuestion = qQuestionQuestion
         self.qQuestionCorrect_Answer = qQuestionCorrect_Answer
-        self.qQuestionInCorrect_Answer_1 = qQuestionInCorrect_Answer_1
-        self.qQuestionInCorrect_Answer_2 = qQuestionInCorrect_Answer_2
-        self.qQuestionInCorrect_Answer_3 = qQuestionInCorrect_Answer_3
+        self.qQuestionAnswer_1 = qQuestionAnswer_1
+        self.qQuestionAnswer_2 = qQuestionAnswer_2
+        self.qQuestionAnswer_3 = qQuestionAnswer_3
+        self.qQuestionAnswer_4 = qQuestionAnswer_4
         self.qQuestionInputAnswer = qQuestionInputAnswer
 
     }
@@ -63,19 +65,23 @@ class QuestionInformation: NSObject {
             questionModel.qQuestionQuestion = dictionaryQuestion["question"] as! NSString
             questionModel.qQuestionCorrect_Answer = dictionaryQuestion["correct_answer"] as! NSString
             
-            let arrayIncorrectAnswers : NSArray = dictionaryQuestion["incorrect_answers"] as! NSArray
+            var arrayAnswers : [String] = dictionaryQuestion["incorrect_answers"] as! [String]
+            arrayAnswers.append(questionModel.qQuestionCorrect_Answer as String)
             
-            for (index,value) in arrayIncorrectAnswers.enumerated() {
+            for (index,value) in arrayAnswers.enumerated() {
                 
                 switch index {
                 case 0 :
-                    questionModel.qQuestionInCorrect_Answer_1 = value as! NSString
+                    questionModel.qQuestionAnswer_1 = value as NSString
                     break
                 case 1 :
-                    questionModel.qQuestionInCorrect_Answer_2 = value as! NSString
+                    questionModel.qQuestionAnswer_2 = value as NSString
                     break
                 case 2 :
-                    questionModel.qQuestionInCorrect_Answer_3 = value as! NSString
+                    questionModel.qQuestionAnswer_3 = value as NSString
+                    break
+                case 3 :
+                    questionModel.qQuestionAnswer_4 = value as NSString
                     break
                 default :
                     break

@@ -33,21 +33,17 @@ class CustomQuestionTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureQuestionCell(viewController:UIViewController, indexPath : IndexPath,needToReArrangeRandomAnswers : Bool){
+    func configureQuestionCell(viewController:UIViewController, indexPath : IndexPath){
         
         let arrayOfQuestionModels = DatabaseManager.fetchDataFromDatabase()
         let questionModel : QuestionInformation = arrayOfQuestionModels.object(at: indexPath.row) as! QuestionInformation
         
         self.labelQuestion.text = questionModel.qQuestionQuestion as String
         
-//        if needToReArrangeRandomAnswers {
-//        self.setRandomAnswersOrder(questionModel: questionModel)
-//        }
-
-        self.buttonAnswer1.setTitle(questionModel.qQuestionCorrect_Answer as String, for: UIControlState.normal)
-        self.buttonAnswer2.setTitle(questionModel.qQuestionInCorrect_Answer_1 as String, for: UIControlState.normal)
-        self.buttonAnswer3.setTitle(questionModel.qQuestionInCorrect_Answer_2 as String, for: UIControlState.normal)
-        self.buttonAnswer4.setTitle(questionModel.qQuestionInCorrect_Answer_3 as String, for: UIControlState.normal)
+        self.buttonAnswer1.setTitle(questionModel.qQuestionAnswer_1 as String, for: UIControlState.normal)
+        self.buttonAnswer2.setTitle(questionModel.qQuestionAnswer_2 as String, for: UIControlState.normal)
+        self.buttonAnswer3.setTitle(questionModel.qQuestionAnswer_3 as String, for: UIControlState.normal)
+        self.buttonAnswer4.setTitle(questionModel.qQuestionAnswer_4 as String, for: UIControlState.normal)
         
         self.buttonAnswer1.tag = 100
         self.buttonAnswer2.tag = 200
@@ -109,40 +105,6 @@ class CustomQuestionTableViewCell: UITableViewCell {
             break
         }
         
-    }
-    
-    func setRandomAnswersOrder(questionModel : QuestionInformation){
-        
-        let randomNumber : Int = Int(arc4random_uniform(4) + 1) // [1, 4]
-        
-        switch randomNumber {
-        case 1:
-            self.buttonAnswer1.setTitle(questionModel.qQuestionCorrect_Answer as String, for: UIControlState.normal)
-            self.buttonAnswer2.setTitle(questionModel.qQuestionInCorrect_Answer_1 as String, for: UIControlState.normal)
-            self.buttonAnswer3.setTitle(questionModel.qQuestionInCorrect_Answer_2 as String, for: UIControlState.normal)
-            self.buttonAnswer4.setTitle(questionModel.qQuestionInCorrect_Answer_3 as String, for: UIControlState.normal)
-            break
-        case 2:
-            self.buttonAnswer1.setTitle(questionModel.qQuestionInCorrect_Answer_1 as String, for: UIControlState.normal)
-            self.buttonAnswer2.setTitle(questionModel.qQuestionCorrect_Answer as String, for: UIControlState.normal)
-            self.buttonAnswer3.setTitle(questionModel.qQuestionInCorrect_Answer_2 as String, for: UIControlState.normal)
-            self.buttonAnswer4.setTitle(questionModel.qQuestionInCorrect_Answer_3 as String, for: UIControlState.normal)
-            break
-        case 3:
-            self.buttonAnswer1.setTitle(questionModel.qQuestionInCorrect_Answer_1 as String, for: UIControlState.normal)
-            self.buttonAnswer2.setTitle(questionModel.qQuestionInCorrect_Answer_2 as String, for: UIControlState.normal)
-            self.buttonAnswer3.setTitle(questionModel.qQuestionCorrect_Answer as String, for: UIControlState.normal)
-            self.buttonAnswer4.setTitle(questionModel.qQuestionInCorrect_Answer_3 as String, for: UIControlState.normal)
-            break
-        case 4:
-            self.buttonAnswer1.setTitle(questionModel.qQuestionInCorrect_Answer_1 as String, for: UIControlState.normal)
-            self.buttonAnswer2.setTitle(questionModel.qQuestionInCorrect_Answer_2 as String, for: UIControlState.normal)
-            self.buttonAnswer3.setTitle(questionModel.qQuestionInCorrect_Answer_3 as String, for: UIControlState.normal)
-            self.buttonAnswer4.setTitle(questionModel.qQuestionCorrect_Answer as String, for: UIControlState.normal)
-            break
-        default:
-            break
-        }
     }
     
     @IBAction func buttonAnswerAction(sender: AnyObject){
