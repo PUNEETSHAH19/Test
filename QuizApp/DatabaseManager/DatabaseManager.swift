@@ -12,7 +12,7 @@ import CoreData
 class DatabaseManager: NSObject {
     
     static func saveDataInDatabase(arrayOfQuestionModels : NSMutableArray){
-        
+
         for (index,element) in arrayOfQuestionModels.enumerated() {
             
             let questionInfoModel = element as! QuestionInformation

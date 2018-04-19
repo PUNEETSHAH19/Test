@@ -53,4 +53,11 @@ class HomeViewModel: NSObject {
         
     }
     
+    func calculateResult(){
+        
+        let arrayOfQuestionModels : [QuestionInformation] = DatabaseManager.fetchDataFromDatabase() as! [QuestionInformation]
+        //let filterArray : NSMutableArray = arrayOfQuestionModels.filter($0.qu)
+        
+    }
+    
 }

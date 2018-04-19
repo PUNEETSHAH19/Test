@@ -77,7 +77,6 @@
 				1F0560F92087CFE100E3AD09 /* View */,
 				1F0560FB2087CFE200E3AD09 /* ViewModel */,
 				1F0560FC2087CFE200E3AD09 /* DatabaseManager */,
-				1F0560F82087CFE100E3AD09 /* WebServiceManager */,
 				1F0561022087D62E00E3AD09 /* AppShareData.swift */,
 				1F0560DB2087CC0500E3AD09 /* AppDelegate.swift */,
 				1F0560DF2087CC0500E3AD09 /* Main.storyboard */,
@@ -88,13 +87,6 @@
 				1F0560F02087CCCF00E3AD09 /* Constant.swift */,
 			);
 			path = QuizApp;
-			sourceTree = "<group>";
-		};
-		1F0560F82087CFE100E3AD09 /* WebServiceManager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = WebServiceManager;
 			sourceTree = "<group>";
 		};
 		1F0560F92087CFE100E3AD09 /* View */ = {

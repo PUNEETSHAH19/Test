@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="210" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wZa-pL-9om">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="611"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -44,28 +44,48 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="tVL-ro-HBi"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button" image="unCheckedIcon"/>
+                                                    <state key="normal" title="Button" image="unCheckedIcon">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="buttonAnswerActionWithSender:" destination="pnB-lO-RwL" eventType="touchUpInside" id="CQ4-x4-YwM"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFJ-rw-Ggk">
                                                     <rect key="frame" x="16" y="102" width="342" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="C63-H6-JK5"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button" image="unCheckedIcon"/>
+                                                    <state key="normal" title="Button" image="unCheckedIcon">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="buttonAnswerActionWithSender:" destination="pnB-lO-RwL" eventType="touchUpInside" id="WQi-X4-gh6"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWu-zh-nso">
                                                     <rect key="frame" x="16" y="135" width="342" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="YBW-v0-kfH"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button" image="unCheckedIcon"/>
+                                                    <state key="normal" title="Button" image="unCheckedIcon">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="buttonAnswerActionWithSender:" destination="pnB-lO-RwL" eventType="touchUpInside" id="Kj4-XJ-HhZ"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5IK-e2-oUG">
                                                     <rect key="frame" x="16" y="170" width="342" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="uOn-qK-MPn"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button" image="unCheckedIcon"/>
+                                                    <state key="normal" title="Button" image="unCheckedIcon">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="buttonAnswerActionWithSender:" destination="pnB-lO-RwL" eventType="touchUpInside" id="T6W-1m-rM2"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -101,6 +121,14 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Jrh-oq-e1A"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abV-LC-4eH">
+                                <rect key="frame" x="164" y="7" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="buttonCalculateResultActionWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vRQ-cg-ox6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

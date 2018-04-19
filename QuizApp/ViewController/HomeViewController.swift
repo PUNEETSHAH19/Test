@@ -8,7 +8,8 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomQuestionTableViewCellDelegate {
+    
 
     @IBOutlet weak var tableView : UITableView!
     let homeViewModel : HomeViewModel = HomeViewModel()
@@ -46,9 +47,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         // create a new cell if needed or reuse an old one
         let cell:CustomQuestionTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "questionCellIdentifier") as! CustomQuestionTableViewCell!
         
-        cell.configureQuestionCell(viewController: self, arrayOfQuestionModels: arrayOfQuestionModels, indexPath: indexPath)
+        cell.configureQuestionCell(viewController: self, indexPath: indexPath)
+        cell.delegate = self
 
         return cell
     }
+    
+    //Implementing delegate
+    func reloadTableView(index:Int) {
+        self.tableView.reloadRows(at: [IndexPath.init(row: index, section: 0)], with: UITableViewRowAnimation.automatic)
+    }
+    
+    @IBAction func buttonCalculateResultAction(sender: AnyObject){
+        homeViewModel.calculateResult()
+    }
+
 
 }

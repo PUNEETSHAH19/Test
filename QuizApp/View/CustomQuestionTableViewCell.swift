@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol CustomQuestionTableViewCellDelegate:class {
+    func reloadTableView(index:Int)
+}
+
 class CustomQuestionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var labelQuestion : UILabel!
@@ -16,6 +20,8 @@ class CustomQuestionTableViewCell: UITableViewCell {
     @IBOutlet weak var buttonAnswer3 : UIButton!
     @IBOutlet weak var buttonAnswer4 : UIButton!
 
+    weak var delegate: CustomQuestionTableViewCellDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -27,24 +33,132 @@ class CustomQuestionTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureQuestionCell(viewController:UIViewController, arrayOfQuestionModels:NSMutableArray, indexPath : IndexPath){
+    func configureQuestionCell(viewController:UIViewController, indexPath : IndexPath){
         
+        let arrayOfQuestionModels = DatabaseManager.fetchDataFromDatabase()
         let questionModel : QuestionInformation = arrayOfQuestionModels.object(at: indexPath.row) as! QuestionInformation
         
         self.labelQuestion.text = questionModel.qQuestionQuestion as String
-        self.buttonAnswer1.setTitle(questionModel.qQuestionInCorrect_Answer_1 as String, for: UIControlState.normal)
-        self.buttonAnswer2.setTitle(questionModel.qQuestionInCorrect_Answer_2 as String, for: UIControlState.normal)
-        self.buttonAnswer3.setTitle(questionModel.qQuestionInCorrect_Answer_3 as String, for: UIControlState.normal)
-        self.buttonAnswer4.setTitle(questionModel.qQuestionCorrect_Answer as String, for: UIControlState.normal)
+        self.setRandomAnswersOrder(questionModel: questionModel)
+
+        self.buttonAnswer1.tag = 100
+        self.buttonAnswer2.tag = 200
+        self.buttonAnswer3.tag = 300
+        self.buttonAnswer4.tag = 400
         
         self.tag = indexPath.row
         
-        if indexPath.row % 2 == 0 {
-            self.backgroundColor = UIColor.gray
-        }else{
-            self.backgroundColor = UIColor.lightGray
+        switch questionModel.qQuestionInputAnswer {
+        case "1":
+            self.buttonAnswer1.setImage(#imageLiteral(resourceName: "checkedIcon"), for: UIControlState.normal)
+            self.buttonAnswer2.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
+            self.buttonAnswer3.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
+            self.buttonAnswer4.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
+            
+            self.buttonAnswer1.setTitleColor(UIColor.red, for: UIControlState.normal)
+            self.buttonAnswer2.setTitleColor(UIColor.black, for: UIControlState.normal)
+            self.buttonAnswer3.setTitleColor(UIColor.black, for: UIControlState.normal)
+            self.buttonAnswer4.setTitleColor(UIColor.black, for: UIControlState.normal)
+            
+            break
+        case "2":
+            self.buttonAnswer1.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
+            self.buttonAnswer2.setImage(#imageLiteral(resourceName: "checkedIcon"), for: UIControlState.normal)
+            self.buttonAnswer3.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
+            self.buttonAnswer4.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
+            
+            self.buttonAnswer1.setTitleColor(UIColor.black, for: UIControlState.normal)
+            self.buttonAnswer2.setTitleColor(UIColor.red, for: UIControlState.normal)
+            self.buttonAnswer3.setTitleColor(UIColor.black, for: UIControlState.normal)
+            self.buttonAnswer4.setTitleColor(UIColor.black, for: UIControlState.normal)
+            
+            break
+        case "3":
+            self.buttonAnswer1.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
+            self.buttonAnswer2.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
+            self.buttonAnswer3.setImage(#imageLiteral(resourceName: "checkedIcon"), for: UIControlState.normal)
+            self.buttonAnswer4.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
+            
+            self.buttonAnswer1.setTitleColor(UIColor.black, for: UIControlState.normal)
+            self.buttonAnswer2.setTitleColor(UIColor.black, for: UIControlState.normal)
+            self.buttonAnswer3.setTitleColor(UIColor.red, for: UIControlState.normal)
+            self.buttonAnswer4.setTitleColor(UIColor.black, for: UIControlState.normal)
+            
+            break
+        case "4":
+            self.buttonAnswer1.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
+            self.buttonAnswer2.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
+            self.buttonAnswer3.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
+            self.buttonAnswer4.setImage(#imageLiteral(resourceName: "checkedIcon"), for: UIControlState.normal)
+            
+            self.buttonAnswer1.setTitleColor(UIColor.black, for: UIControlState.normal)
+            self.buttonAnswer2.setTitleColor(UIColor.black, for: UIControlState.normal)
+            self.buttonAnswer3.setTitleColor(UIColor.black, for: UIControlState.normal)
+            self.buttonAnswer4.setTitleColor(UIColor.red, for: UIControlState.normal)
+            
+            break
+        default:
+            break
         }
         
     }
     
+    func setRandomAnswersOrder(questionModel : QuestionInformation){
+        
+        let randomNumber : Int = Int(arc4random_uniform(4) + 1) // [1, 4]
+        
+        switch randomNumber {
+        case 1:
+            self.buttonAnswer1.setTitle(questionModel.qQuestionCorrect_Answer as String, for: UIControlState.normal)
+            self.buttonAnswer2.setTitle(questionModel.qQuestionInCorrect_Answer_1 as String, for: UIControlState.normal)
+            self.buttonAnswer3.setTitle(questionModel.qQuestionInCorrect_Answer_2 as String, for: UIControlState.normal)
+            self.buttonAnswer4.setTitle(questionModel.qQuestionInCorrect_Answer_3 as String, for: UIControlState.normal)
+            break
+        case 2:
+            self.buttonAnswer1.setTitle(questionModel.qQuestionInCorrect_Answer_1 as String, for: UIControlState.normal)
+            self.buttonAnswer2.setTitle(questionModel.qQuestionCorrect_Answer as String, for: UIControlState.normal)
+            self.buttonAnswer3.setTitle(questionModel.qQuestionInCorrect_Answer_2 as String, for: UIControlState.normal)
+            self.buttonAnswer4.setTitle(questionModel.qQuestionInCorrect_Answer_3 as String, for: UIControlState.normal)
+            break
+        case 3:
+            self.buttonAnswer1.setTitle(questionModel.qQuestionInCorrect_Answer_1 as String, for: UIControlState.normal)
+            self.buttonAnswer2.setTitle(questionModel.qQuestionInCorrect_Answer_2 as String, for: UIControlState.normal)
+            self.buttonAnswer3.setTitle(questionModel.qQuestionCorrect_Answer as String, for: UIControlState.normal)
+            self.buttonAnswer4.setTitle(questionModel.qQuestionInCorrect_Answer_3 as String, for: UIControlState.normal)
+            break
+        case 4:
+            self.buttonAnswer1.setTitle(questionModel.qQuestionInCorrect_Answer_1 as String, for: UIControlState.normal)
+            self.buttonAnswer2.setTitle(questionModel.qQuestionInCorrect_Answer_2 as String, for: UIControlState.normal)
+            self.buttonAnswer3.setTitle(questionModel.qQuestionInCorrect_Answer_3 as String, for: UIControlState.normal)
+            self.buttonAnswer4.setTitle(questionModel.qQuestionCorrect_Answer as String, for: UIControlState.normal)
+            break
+        default:
+            break
+        }
+    }
+    
+    @IBAction func buttonAnswerAction(sender: AnyObject){
+        
+        let index : Int = sender.tag/100
+
+        var cellIndex : Int = 0
+        if let button = sender as? UIButton {
+            if let superview = button.superview {
+                if let cell = superview.superview as? CustomQuestionTableViewCell {
+                        cellIndex = cell.tag
+                }
+            }
+        }
+        
+        let arrayOfQuestionModels = DatabaseManager.fetchDataFromDatabase()
+        let questionModel : QuestionInformation = arrayOfQuestionModels.object(at: cellIndex) as! QuestionInformation
+
+        DatabaseManager.updateQuestionSAnswer(questionId: questionModel.qQuestionId as String, selectionIndex: index)
+        
+        //Reloading tableView
+        self.delegate?.reloadTableView(index: cellIndex)
+        
+    }
+    
+
 }
