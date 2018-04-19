@@ -13,4 +13,6 @@ class AppShareData: NSObject {
 
     static let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    static var arrayQuestions = NSMutableArray.init()
+    
 }

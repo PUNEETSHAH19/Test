@@ -9,10 +9,10 @@
 import UIKit
 
 class HomeViewModel: NSObject {
-
-    func callQuestionsAPI(){
+    
+    func callQuestionsAPIAndSaveInDB(){
         
-        let url = URL(string: "https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple")
+        let url = URL(string: Constant.API)
         
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error ) in
             

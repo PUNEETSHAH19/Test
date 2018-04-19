@@ -45,7 +45,8 @@ class QuestionInformation: NSObject {
         self.qQuestionInputAnswer = qQuestionInputAnswer
 
     }
-    
+
+    // MARK: - Parsing Method
     func parseQuestionData(response:[String: Any]) -> NSMutableArray {
         
         let results : NSArray = response["results"] as! NSArray

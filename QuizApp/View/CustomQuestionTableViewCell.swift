@@ -9,11 +9,12 @@
 import UIKit
 
 protocol CustomQuestionTableViewCellDelegate:class {
-    func reloadTableView(index:Int)
+    func reloadTableViewCell(index:Int)
 }
 
 class CustomQuestionTableViewCell: UITableViewCell {
 
+    //declaring variables and UI elements
     @IBOutlet weak var labelQuestion : UILabel!
     @IBOutlet weak var buttonAnswer1 : UIButton!
     @IBOutlet weak var buttonAnswer2 : UIButton!
@@ -33,6 +34,7 @@ class CustomQuestionTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    // MARK: - Configure cell
     func configureQuestionCell(viewController:UIViewController, indexPath : IndexPath){
         
         let arrayOfQuestionModels = DatabaseManager.fetchDataFromDatabase()
@@ -44,6 +46,7 @@ class CustomQuestionTableViewCell: UITableViewCell {
         self.buttonAnswer2.setTitle(questionModel.qQuestionAnswer_2 as String, for: UIControlState.normal)
         self.buttonAnswer3.setTitle(questionModel.qQuestionAnswer_3 as String, for: UIControlState.normal)
         self.buttonAnswer4.setTitle(questionModel.qQuestionAnswer_4 as String, for: UIControlState.normal)
+
         
         self.buttonAnswer1.tag = 100
         self.buttonAnswer2.tag = 200
@@ -52,8 +55,19 @@ class CustomQuestionTableViewCell: UITableViewCell {
         
         self.tag = indexPath.row
         
-        switch questionModel.qQuestionInputAnswer {
-        case "1":
+        var value : Int = 0
+        if questionModel.qQuestionInputAnswer == questionModel.qQuestionAnswer_1 {
+            value = 1
+        }else if questionModel.qQuestionInputAnswer == questionModel.qQuestionAnswer_2 {
+            value = 2
+        }else if questionModel.qQuestionInputAnswer == questionModel.qQuestionAnswer_3 {
+            value = 3
+        }else if questionModel.qQuestionInputAnswer == questionModel.qQuestionAnswer_4 {
+            value = 4
+        }
+        
+        switch value {
+        case 1:
             self.buttonAnswer1.setImage(#imageLiteral(resourceName: "checkedIcon"), for: UIControlState.normal)
             self.buttonAnswer2.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
             self.buttonAnswer3.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
@@ -65,7 +79,7 @@ class CustomQuestionTableViewCell: UITableViewCell {
             self.buttonAnswer4.setTitleColor(UIColor.black, for: UIControlState.normal)
             
             break
-        case "2":
+        case 2:
             self.buttonAnswer1.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
             self.buttonAnswer2.setImage(#imageLiteral(resourceName: "checkedIcon"), for: UIControlState.normal)
             self.buttonAnswer3.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
@@ -77,7 +91,7 @@ class CustomQuestionTableViewCell: UITableViewCell {
             self.buttonAnswer4.setTitleColor(UIColor.black, for: UIControlState.normal)
             
             break
-        case "3":
+        case 3:
             self.buttonAnswer1.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
             self.buttonAnswer2.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
             self.buttonAnswer3.setImage(#imageLiteral(resourceName: "checkedIcon"), for: UIControlState.normal)
@@ -89,7 +103,7 @@ class CustomQuestionTableViewCell: UITableViewCell {
             self.buttonAnswer4.setTitleColor(UIColor.black, for: UIControlState.normal)
             
             break
-        case "4":
+        case 4:
             self.buttonAnswer1.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
             self.buttonAnswer2.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
             self.buttonAnswer3.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
@@ -102,11 +116,21 @@ class CustomQuestionTableViewCell: UITableViewCell {
             
             break
         default:
+            self.buttonAnswer1.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
+            self.buttonAnswer2.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
+            self.buttonAnswer3.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
+            self.buttonAnswer4.setImage(#imageLiteral(resourceName: "unCheckedIcon"), for: UIControlState.normal)
+            
+            self.buttonAnswer1.setTitleColor(UIColor.black, for: UIControlState.normal)
+            self.buttonAnswer2.setTitleColor(UIColor.black, for: UIControlState.normal)
+            self.buttonAnswer3.setTitleColor(UIColor.black, for: UIControlState.normal)
+            self.buttonAnswer4.setTitleColor(UIColor.black, for: UIControlState.normal)
             break
         }
         
     }
     
+    // MARK: - Actions methods
     @IBAction func buttonAnswerAction(sender: AnyObject){
         
         var cellIndex : Int = 0
@@ -125,8 +149,8 @@ class CustomQuestionTableViewCell: UITableViewCell {
             DatabaseManager.updateQuestionSAnswer(questionId: questionModel.qQuestionId as String, selectionInput: buttonTitle)
         }
         
-        //Reloading tableView
-        self.delegate?.reloadTableView(index: cellIndex)
+        //Reloading individual tableViewcell
+        self.delegate?.reloadTableViewCell(index: cellIndex)
         
     }
     

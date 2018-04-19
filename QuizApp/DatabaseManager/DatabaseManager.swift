@@ -11,6 +11,7 @@ import CoreData
 
 class DatabaseManager: NSObject {
     
+    // MARK: - Save Questions data in database
     static func saveDataInDatabase(arrayOfQuestionModels : NSMutableArray){
 
         for (index,element) in arrayOfQuestionModels.enumerated() {
@@ -27,7 +28,7 @@ class DatabaseManager: NSObject {
             question.setValue(questionInfoModel.qQuestionCorrect_Answer, forKey: "questionCorrectAnswer")
             question.setValue(questionInfoModel.qQuestionDifficulty, forKey: "questionDifficulty")
 
-            //here we are saving available answere in random order because correct answer will not be on same place for all questions
+            //here we are saving available answers in random order because correct answer will not be on same place for all questions
             let randomNumber : Int = Int(arc4random_uniform(4) + 1) // [1, 4]
             
             switch randomNumber {
@@ -71,6 +72,13 @@ class DatabaseManager: NSObject {
             }
             
         }
+        
+        //now fetching data
+        AppShareData.arrayQuestions.removeAllObjects()
+        AppShareData.arrayQuestions = self.fetchDataFromDatabase()
+        
+        //Fire notificaiton for reload tableView
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "RELOAD_TABLE_VIEW"), object: nil)
         
     }
     

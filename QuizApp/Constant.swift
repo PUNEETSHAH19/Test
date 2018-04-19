@@ -2,10 +2,14 @@
 //  Constant.swift
 //  QuizApp
 //
-//  Created by MyMac on 4/19/18.
+//  Created by MyMac on 4/20/18.
 //  Copyright © 2018 Test. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-let API : String = "https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple"
+class Constant: NSObject {
+
+    static let API : String = "https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple"
+
+}
